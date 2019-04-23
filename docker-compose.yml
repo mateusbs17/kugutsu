@@ -1,0 +1,19 @@
+leap_motion:
+  build: ./ros
+  container_name: leap_motion
+  tty: true
+  volumes:
+    - ./app:/home/ros/catkin_ws/app
+    - /dev/video0:/dev/video0
+    - ${XAUTHORITY}:/tmp/.docker.xauth:rw
+  devices:
+    - /dev/video0:/dev/video0
+    - /dev/video1:/dev/video1
+    - /dev/ptmx:/dev/ptmx
+  environment:
+    - DISPLAY=${DISPLAY}
+    - XAUTHORITY=/tmp/.docker.xauth:rw
+    - HOST_HOSTNAME=${HOSTNAME}
+  net: host
+  working_dir: /home/ros
+  privileged: true
